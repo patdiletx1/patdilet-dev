@@ -80,35 +80,36 @@ export function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Contact Info */}
+        <div className="max-w-4xl mx-auto">
+          {/* Contact Info Centered */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-2 space-y-6"
+            className="space-y-8"
           >
             {/* CTA Card */}
-            <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Calendar className="w-6 h-6 text-primary" />
+            <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20 overflow-hidden">
+              <CardContent className="p-8 sm:p-12 text-center">
+                <div className="flex flex-col items-center gap-6">
+                  <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center">
+                    <Calendar className="w-8 h-8 text-primary" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-2">
+                  <div className="max-w-xl">
+                    <h3 className="text-2xl font-bold text-foreground mb-3">
                       {contact.cardTitle}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <p className="text-lg text-muted-foreground mb-8">
                       {contact.cardDesc}
                     </p>
                     <Button
                       asChild
-                      className="bg-gradient-to-r from-primary to-accent text-primary-foreground"
+                      size="lg"
+                      className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-lg px-8 py-6 h-auto"
                     >
                       <a
-                        href="https://calendly.com"
+                        href="https://calendly.com/patdiletx/30min"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -120,192 +121,46 @@ export function Contact() {
               </CardContent>
             </Card>
 
-            {/* Contact Details */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-card/50 border border-border/50">
-                <Mail className="w-5 h-5 text-primary" />
+            <div className="grid sm:grid-cols-2 gap-6">
+              {/* Email */}
+              <div className="flex items-center gap-4 p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/30 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-6 h-6 text-primary" />
+                </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">{contact.email}</p>
+                  <p className="text-sm text-muted-foreground font-medium mb-1">{contact.email}</p>
                   <a
-                    href="mailto:contacto@patdilet.dev"
-                    className="text-foreground hover:text-primary transition-colors"
+                    href="mailto:patdiletx@gmail.com"
+                    className="text-lg font-semibold text-foreground hover:text-primary transition-colors"
                   >
-                    contacto@patdilet.dev
+                    patdiletx@gmail.com
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-card/50 border border-border/50">
-                <MapPin className="w-5 h-5 text-primary" />
+              {/* Availability */}
+              <div className="flex items-center gap-4 p-6 rounded-2xl bg-card/50 border border-border/50">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-6 h-6 text-primary" />
+                </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">{contact.availability}</p>
-                  <p className="text-foreground">{contact.availabilityValue}</p>
+                  <p className="text-sm text-muted-foreground font-medium mb-1">{contact.availability}</p>
+                  <p className="text-lg font-semibold text-foreground">{contact.availabilityValue}</p>
                 </div>
               </div>
             </div>
 
-            {/* Trust Note */}
-            <div className="glass border border-border/50 rounded-xl p-4 space-y-1">
-              <p className="text-sm text-muted-foreground">
-                <span className="text-primary font-medium">✓</span> {contact.trust1}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                <span className="text-primary font-medium">✓</span> {contact.trust2}
-              </p>
+            {/* Trust Badges */}
+            <div className="flex flex-wrap justify-center gap-6 pt-4">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-border/50">
+                <CheckCircle className="w-4 h-4 text-primary" />
+                <span className="text-sm text-muted-foreground font-medium">{contact.trust1}</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-border/50">
+                <CheckCircle className="w-4 h-4 text-primary" />
+                <span className="text-sm text-muted-foreground font-medium">{contact.trust2}</span>
+              </div>
             </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-3"
-          >
-            <Card className="bg-card/80 border-border/50">
-              <CardContent className="p-6 sm:p-8">
-                {isSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
-                  >
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle className="w-8 h-8 text-emerald-400" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">
-                      {contact.formSuccess}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {contact.formSuccessDesc}
-                    </p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="name"
-                          className="text-sm font-medium text-foreground"
-                        >
-                          {contact.formName}
-                        </label>
-                        <Input
-                          id="name"
-                          name="name"
-                          placeholder={contact.formNamePlaceholder}
-                          required
-                          className="bg-secondary/50 border-border/50 focus:border-primary/50"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="email"
-                          className="text-sm font-medium text-foreground"
-                        >
-                          {contact.formEmail}
-                        </label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          placeholder={contact.formEmailPlaceholder}
-                          required
-                          className="bg-secondary/50 border-border/50 focus:border-primary/50"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="company"
-                        className="text-sm font-medium text-foreground"
-                      >
-                        {contact.formCompany}
-                        <span className="text-muted-foreground">{contact.formCompanyOptional}</span>
-                      </label>
-                      <Input
-                        id="company"
-                        name="company"
-                        placeholder={contact.formCompanyPlaceholder}
-                        className="bg-secondary/50 border-border/50 focus:border-primary/50"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="subject"
-                        className="text-sm font-medium text-foreground"
-                      >
-                        {contact.formSubject}
-                      </label>
-                      <Input
-                        id="subject"
-                        name="subject"
-                        placeholder={contact.formSubjectPlaceholder}
-                        defaultValue={getPrefilledSubject()}
-                        required
-                        className="bg-secondary/50 border-border/50 focus:border-primary/50"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="message"
-                        className="text-sm font-medium text-foreground"
-                      >
-                        {contact.formMessage}
-                      </label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        placeholder={contact.formMessagePlaceholder}
-                        required
-                        rows={5}
-                        className="bg-secondary/50 border-border/50 focus:border-primary/50 resize-none"
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 text-primary-foreground font-semibold py-6"
-                    >
-                      {isSubmitting ? (
-                        <span className="flex items-center gap-2">
-                          <svg
-                            className="animate-spin w-5 h-5"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                              fill="none"
-                            />
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            />
-                          </svg>
-                          {contact.formSubmitting}
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-2">
-                          {contact.formSubmit}
-                          <Send className="w-4 h-4" />
-                        </span>
-                      )}
-                    </Button>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
           </motion.div>
         </div>
       </div>

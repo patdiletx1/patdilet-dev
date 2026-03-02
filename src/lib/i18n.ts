@@ -112,7 +112,7 @@ export const translations = {
       formName: "Nombre",
       formNamePlaceholder: "Su nombre",
       formEmail: "Email",
-      formEmailPlaceholder: "correo@empresa.com",
+      formEmailPlaceholder: "patdiletx@gmail.com",
       formCompany: "Empresa ",
       formCompanyOptional: "(opcional)",
       formCompanyPlaceholder: "Nombre de su empresa",
@@ -276,7 +276,7 @@ export const translations = {
       formName: "Name",
       formNamePlaceholder: "Your name",
       formEmail: "Email",
-      formEmailPlaceholder: "email@company.com",
+      formEmailPlaceholder: "patdiletx@gmail.com",
       formCompany: "Company ",
       formCompanyOptional: "(optional)",
       formCompanyPlaceholder: "Your company name",
@@ -331,7 +331,7 @@ export const translations = {
   },
 } as const;
 
-export type Translations = typeof translations.es;
+export type Translations = typeof translations.es | typeof translations.en;
 
 export function getTranslations(lang: Language): Translations {
   return translations[lang];
