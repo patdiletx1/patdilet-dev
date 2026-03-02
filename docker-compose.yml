@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  patdilet-web:
+    build: .
+    container_name: patdilet-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      # ZAI_API_KEY and ZAI_BASE_URL will be loaded from .env file

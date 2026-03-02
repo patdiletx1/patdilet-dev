@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import fs from "fs/promises";
+import path from "path";
 import ZAI from "z-ai-web-dev-sdk";
 
 const SYSTEM_PROMPTS = {
@@ -63,13 +65,13 @@ MEMORY: If there's history, acknowledge the user and continue.`,
 
 export async function POST(request: NextRequest) {
   // Parse body once at the start
-  let body: { 
-    sessionId?: string; 
-    message?: string; 
-    language?: string; 
-    history?: Array<{ role: string; content: string }> 
+  let body: {
+    sessionId?: string;
+    message?: string;
+    language?: string;
+    history?: Array<{ role: string; content: string }>
   };
-  
+
   try {
     body = await request.json();
   } catch {
@@ -116,6 +118,22 @@ export async function POST(request: NextRequest) {
       content: message,
     });
 
+    // Ensure config exists dynamically to avoid physical file dependencies
+    const zaiApiKey = process.env.ZAI_API_KEY;
+    const zaiBaseUrl = process.env.ZAI_BASE_URL || "https://api.z.ai/api/paas/v4";
+
+    if (zaiApiKey) {
+      const configPath = path.join(process.cwd(), '.z-ai-config');
+      try {
+        await fs.writeFile(configPath, JSON.stringify({
+          baseUrl: zaiBaseUrl,
+          apiKey: zaiApiKey
+        }), 'utf8');
+      } catch (err) {
+        console.error("Failed to write dynamic ZAI config to cwd:", err);
+      }
+    }
+
     // Initialize ZAI
     const zai = await ZAI.create();
 
@@ -127,6 +145,7 @@ export async function POST(request: NextRequest) {
     while (!aiResponse && attempts < maxAttempts) {
       try {
         const completion = await zai.chat.completions.create({
+          model: "GLM-4.7-Flash",
           messages: messages,
           thinking: { type: "disabled" },
         });
@@ -149,13 +168,13 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error("Assistant API error:", error);
-    
+
     // Return a friendly fallback that pushes to schedule
     const fallbacks: Record<string, string> = {
       es: "Disculpa, tuve un problema técnico. ¿Te paso el link para agendar una llamada y resolvemos tu consulta directamente?",
       en: "Sorry, I had a technical issue. Should I share the link to schedule a call and address your question directly?"
     };
-    
+
     return NextResponse.json({
       success: true,
       response: fallbacks[language] || fallbacks.es,
