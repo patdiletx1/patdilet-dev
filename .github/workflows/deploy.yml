@@ -1,4 +1,5 @@
 name: Deploy patdilet-web
+
 on:
   push:
     branches: [ "main" ]
@@ -9,9 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # 1. Necesario para emular diferentes arquitecturas (amd64, arm64)
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
+      # 2. Setup de Buildx (motor de construcción avanzado para multi-arch)
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -22,11 +25,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # 3. Construcción multi-arquitectura
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
+          # Aquí especificamos que cree la imagen tanto para tu Mac (arm64) como para tu servidor (amd64)
+          platforms: linux/amd64,linux/arm64
           tags: ghcr.io/${{ github.repository }}/patdilet-web:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
