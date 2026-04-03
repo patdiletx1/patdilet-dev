@@ -121,25 +121,9 @@ export function Contact() {
               </CardContent>
             </Card>
 
-            <div className="grid sm:grid-cols-2 gap-6">
-              {/* Email */}
-              <div className="flex items-center gap-4 p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/30 transition-colors">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground font-medium mb-1">{contact.email}</p>
-                  <a
-                    href="mailto:patdiletx@gmail.com"
-                    className="text-lg font-semibold text-foreground hover:text-primary transition-colors"
-                  >
-                    patdiletx@gmail.com
-                  </a>
-                </div>
-              </div>
-
+            <div className="flex items-center justify-center">
               {/* Availability */}
-              <div className="flex items-center gap-4 p-6 rounded-2xl bg-card/50 border border-border/50">
+              <div className="flex items-center gap-4 p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/30 transition-colors">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
