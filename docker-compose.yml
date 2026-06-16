@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   patdilet-web:
-    image: ghcr.io/${GITHUB_REPOSITORY_OWNER:-patmac}/patdilet-web:latest
+    image: ghcr.io/patdiletx1/patdilet-dev/patdilet-web:latest
     container_name: patdilet-web
     restart: unless-stopped
     ports:

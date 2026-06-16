@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
@@ -15,33 +17,38 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://patdilet.dev"),
-  title: "PatDilet | Consultoría Tecnológica - IA & Cloud Solutions",
-  description: "Especialistas en transformar procesos manuales en flujos inteligentes. Soluciones Cloud e Inteligencia Artificial diseñadas para empresas que no pueden permitirse fallar.",
-  keywords: ["Inteligencia Artificial", "Cloud Architecture", "Transformación Digital", "Consultoría Tecnológica", "IA Generativa", "Modernización Legacy", "Arquitectura de Software"],
-  authors: [{ name: "Patricio - PatDilet" }],
+  title: "Patricio Díaz | Automatización que funciona",
+  description:
+    "Soy Patricio Díaz, ingeniero .NET y emprendedor. Construyo sistemas automáticos que hacen crecer tu negocio mientras tú duermes.",
+  keywords: [
+    "automatización",
+    ".NET",
+    "desarrollo web",
+    "bots",
+    "chatbots",
+    "scraping",
+    "DevOps",
+    "Inteligencia Artificial",
+    "Cloud Architecture",
+    "Transformación Digital",
+  ],
+  authors: [{ name: "Patricio Díaz" }],
   icons: {
     icon: "/logo.svg",
   },
   openGraph: {
-    title: "PatDilet | Ingeniería de Software que impulsa su crecimiento",
-    description: "Construimos el futuro de su empresa sobre bases sólidas: Inteligencia Artificial aplicada y Arquitectura Cloud escalable.",
+    title: "Patricio Díaz | Automatización que funciona",
+    description:
+      "Construyo sistemas automáticos que hacen crecer tu negocio mientras tú duermes. Ingeniería .NET + Automatización Inteligente.",
     url: "https://patdilet.dev",
-    siteName: "PatDilet",
+    siteName: "Patricio Díaz",
     type: "website",
-    images: [
-      {
-        url: "/hero-bg.png",
-        width: 1344,
-        height: 768,
-        alt: "PatDilet - Consultoría Tecnológica",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PatDilet | Consultoría Tecnológica - IA & Cloud Solutions",
-    description: "Ingeniería de Software que impulsa su crecimiento. Especialistas en IA y Cloud.",
-    images: ["/hero-bg.png"],
+    title: "Patricio Díaz | Automatización que funciona",
+    description:
+      "Ingeniería .NET + Automatización Inteligente. Construyo sistemas que hacen crecer tu negocio.",
   },
   robots: {
     index: true,
@@ -57,9 +64,11 @@ export default function RootLayout({
   return (
     <html lang="es" className="dark" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col antialiased bg-background text-foreground`}
       >
-        {children}
+        <Navbar />
+        <main className="flex-1 pt-16">{children}</main>
+        <Footer />
         <Toaster />
       </body>
     </html>
